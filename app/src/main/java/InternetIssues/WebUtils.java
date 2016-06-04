@@ -3,7 +3,9 @@ package InternetIssues;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
@@ -99,5 +101,10 @@ public class WebUtils {
     public String getResult() throws IOException {
         if (complete) return result;
         else throw new IOException("It's not finished ");
+    }
+
+    public InputStream getInputstream() {
+        ByteArrayInputStream bai = new ByteArrayInputStream(result.getBytes());
+        return bai;
     }
 }

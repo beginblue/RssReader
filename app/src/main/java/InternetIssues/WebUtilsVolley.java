@@ -12,7 +12,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -26,8 +28,8 @@ public class WebUtilsVolley {
     private String mURL;
     private Context mContext;
     private boolean isFinished = false;
-    private String outputString="";
-    private OutputStream mOutputStream=null;
+    private String outputString = "";
+    //private OutputStream mOutputStream = null;
     StringRequest request;
     static int requestCount = 0;
 
@@ -44,7 +46,7 @@ public class WebUtilsVolley {
             public void onResponse(String response) {
                 //outputString = response;
                 System.out.println(response);
-                if(textView!=null){
+                if (textView != null) {
                     textView.setText(response);
                 }
 //                try {
@@ -86,19 +88,9 @@ public class WebUtilsVolley {
         }
     }
 
-    public OutputStream getOutputStream() throws InterruptedException {
-        requestCount++;
-        if (isFinished) {
-            requestCount = 0;
-            return mOutputStream;
-        } else {
-            if (requestCount > 3) {
-                requestCount = 0;
-                throw new InterruptedException("timed out");
-            }
-            Thread.sleep(3000);
-            return getOutputStream();
-        }
+    public InputStream getInputstream() {
+        ByteArrayInputStream bai = new ByteArrayInputStream(outputString.getBytes());
+       return bai;
     }
 
 }

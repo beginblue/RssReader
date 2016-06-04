@@ -101,5 +101,9 @@ public class Channel {
 //                + ttl + ", mItems=" + Arrays.toString(mItems) + "]";
 //    }
 
+    public List<Item> getItems(){
+        return mItems;
+    }
+
 
 }
